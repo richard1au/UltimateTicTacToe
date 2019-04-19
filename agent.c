@@ -84,12 +84,14 @@ void agent_start( int this_player )
 //Should run some tests like only choosing middle square (position 5)
 int choose_move_helper(void)
 {
+  //Return centre piece test
+  return 5;
 //   do {
 //     this_move = 1 + random()% 9;
 //   } while( board[prev_move][this_move] != EMPTY );
 //   return this_move;
 // }
-
+}
 //Second and third moves are special because they are your the first moves
 //This agent makes. Hence they update their move array and board differently!
 //Probably best to have a "choose_move" function to be used between second, third and next move
@@ -107,7 +109,8 @@ int agent_second_move( int board_num, int prev_move )
   // do {
   //   this_move = 1 + random()% 9;
   // } while( board[prev_move][this_move] != EMPTY );
-  move[m] = choose_move_helper();
+  this_move = choose_move_helper();
+  move[m] = this_move;
   board[prev_move][this_move] = player;
   return( this_move );
 }
@@ -131,7 +134,8 @@ int agent_third_move(
   // do {
   //   this_move = 1 + random()% 9;
   // } while( board[prev_move][this_move] != EMPTY );
-  move[m] = move[m] = choose_move_helper();
+  this_move = choose_move_helper();
+  move[m] = this_move;
   board[move[m-1]][this_move] = player;
   return( this_move );
 }
@@ -149,7 +153,8 @@ int agent_next_move( int prev_move )
   // do {
   //   this_move = 1 + random()% 9;
   // } while( board[prev_move][this_move] != EMPTY );
-  move[m] = choose_move_helper();
+  this_move = choose_move_helper();
+  move[m] = this_move;
   board[move[m-1]][this_move] = player;
   return( this_move );
 }
