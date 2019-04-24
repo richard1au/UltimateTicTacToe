@@ -97,7 +97,7 @@ def heuristicBoard(boards):
         total += heuristicSmall(boards, i)
     return total
 
-
+#need to change values 1 and 2 to the value of player 1 and player 2, idk what it actually is soz lol
 # evaluates the heuristic for a 3x3 board
 def heuristicSmall(boards, i):
     totalX = 0
