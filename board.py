@@ -55,10 +55,11 @@ class Board:
 
     def boardfull(self):
         for i in range(1, 9):
-            if self._state[self._board][i] == 0:
-                return false
+            for j in range(1, 9):
+                if self._state[i][j] == 0:
+                    return False 
 
-        return true
+        return True
 
     def won(self):
         b = self._state[self._boardplayedin]
@@ -83,12 +84,15 @@ class Board:
 
         return children
         
+    def get_player(self):
+        return self._player
+
     def next_player(self):
         if self._player == 2:
             return 1
         return 2
         
-        
+ 
         
 
 
