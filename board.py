@@ -18,7 +18,7 @@ class Board:
 
     #remember for agent.py heuristic is computed from player 2 point of view
     def compute_heuristic(self):
-        return heuristicBoard(self)
+        return heuristicBoard(self, player1, player2)
     
     def get_tile(self, board, num):
         return self._state[board][num]
@@ -97,76 +97,77 @@ class Board:
 
 
 # calculates the heuristic of the entire board
-def heuristicBoard(self):
+# where player1 is the player who called the alpha beta search
+def heuristicBoard(self, player1, player2):
     total = 0
     for i in range(1,9):
-        total += heuristicSmall(self, i)
+        total += heuristicSmall(self, i, player1, player2)
     return total
 
 
 # evaluates the heuristic for a 3x3 board
 def heuristicSmall(self, i):
-    totalX = 0
-    totalO = 0
-    currX = 0
-    currO = 0    
+    total1 = 0
+    total2 = 0
+    curr1 = 0
+    curr2 = 0    
     
     # calculates for each row 
     for k in range(1,10):
-        if self.get_tile(i,k) == self._player:
-            currX += 1
-        if self.get_tile(i,k) == self.next_player():
-            currO += 1
+        if self.get_tile(i,k) == player1:
+            curr1 += 1
+        if self.get_tile(i,k) == player2:
+            curr2 += 1
         if k % 3 == 0:
-            totalX += heuristicAddX(currX, currO)
-            totalO += heuristicAddO(currX, currO)
-            currX = 0
-            currO = 0
+            total1 += heuristicAddX(curr1, curr2)
+            total2 += heuristicAddO(curr1, curr2)
+            curr1 = 0
+            curr2 = 0
                 
     #calculates for each column
     for k in range(0,3):
         for l in range(1,10,3):
-            if self.get_tile(i,l+k) == self._player: 
-                currX += 1
-            if self.get_tile(i,l+k) == self.next_player(): 
-                currO += 1      
-        totalX += heuristicAddX(currX, currO)
-        totalO += heuristicAddO(currX, currO)
-        currX = 0
-        currO = 0
+            if self.get_tile(i,l+k) == player1:
+                curr1 += 1
+            if self.get_tile(i,l+k) == player2: 
+                curr2 += 1      
+        total1 += heuristicAddX(curr1, curr2)
+        total2 += heuristicAddO(curr1, curr2)
+        curr1 = 0
+        curr2 = 0
                 
     #calculates for each diagonal 
     for k in range(1,8,4):
-        if self.get_tile(i,k) == self._player:
-            currX += 1
-        if self.get_tile(i,k) == self.next_player():
-            currO += 1
-    totalX += heuristicAddX(currX, currO)
-    totalO += heuristicAddO(currX, currO)
-    currX = 0
-    currO = 0
+        if self.get_tile(i,k) == player1:
+            curr1 += 1
+        if self.get_tile(i,k) == player2:
+            curr2 += 1
+    total1 += heuristicAddX(curr1, curr2)
+    total2 += heuristicAddO(curr1, curr2)
+    curr1 = 0
+    curr2 = 0
         
     for k in range(3,8,2):
-        if self.get_tile(i,k) == self._player:
-            currX += 1
-        if self.get_tile(i,k) == self.next_player():
-            currO += 1
-    totalX += heuristicAddX(currX, currO)
-    totalO += heuristicAddO(currX, currO)
-    currX = 0
-    currO = 0
+        if self.get_tile(i,k) == player1:
+            curr1 += 1
+        if self.get_tile(i,k) == player2:
+            curr2 += 1
+    total1 += heuristicAddX(curr1, curr2)
+    total2 += heuristicAddO(curr1, curr2)
+    curr1 = 0
+    curr2 = 0
     
-    return totalX-totalO
+    return total1-total2
 
 
 #helper function to find X score for a row/col/diagonal
-def heuristicAddX(currX, currO):
-    if currO == 0:
-        if currX == 3:
+def heuristicAddX(curr1, curr2):
+    if curr2 == 0:
+        if curr1 == 3:
             return 6
-        if currX == 2:
+        if curr1 == 2:
             return 3
-        if currX == 1:
+        if curr1 == 1:
             return 1
         else:
             return 0
@@ -174,13 +175,13 @@ def heuristicAddX(currX, currO):
         return 0
         
 #helper function to find O score for a row/col/diagonal
-def heuristicAddO(currX, currO):
-    if currX == 0:
-        if currO == 3:
+def heuristicAddO(curr1, curr2):
+    if curr1 == 0:
+        if curr2 == 3:
             return 6
-        if currO == 2:
+        if curr2 == 2:
             return 3
-        if currO == 1:
+        if curr2 == 1:
             return 1
         else:
             return 0 

@@ -93,7 +93,7 @@ def alphaBetaSearch(depth):
 
 def alphaBetaHelper(node, depth, alpha, beta):
     if node.is_terminal() or depth == 0:
-        return node.compute_heuristic()
+        return node.compute_heuristic(node.get_player(), node.next_player())
 
     if node.get_player() == 2:
         for child in node.generate_children():
