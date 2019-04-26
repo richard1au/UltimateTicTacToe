@@ -90,98 +90,14 @@ def main():
 
 
 
-# calculates the heuristic of the entire board
-def heuristicBoard(boards):
-    total = 0
-    for i in range(1,9):
-        total += heuristicSmall(boards, i)
-    return total
-
-#need to change values 1 and 2 to the value of player 1 and player 2, idk what it actually is soz lol
-# evaluates the heuristic for a 3x3 board
-def heuristicSmall(boards, i):
-    totalX = 0
-    totalO = 0
-    currX = 0
-    currO = 0    
-    
-    # calculates for each row 
-    for k in range(1,10):
-        if boards.get_tile(i,k) == 1:
-            currX += 1
-        if boards.get_tile(i,k) == 2:
-            currO += 1
-        if k % 3 == 0:
-            totalX += heuristicAddX(currX, currO)
-            totalO += heuristicAddO(currX, currO)
-            currX = 0
-            currO = 0
-                
-    #calculates for each column
-    for k in range(0,3):
-        for l in range(1,10,3):
-            if boards.get_tile(i,l+k) == 1: 
-                currX += 1
-            if boards.get_tile(i,l+k) == 2: 
-                currO += 1
-        totalX += heuristicAddX(currX, currO)
-        totalO += heuristicAddO(currX, currO)
-        currX = 0
-        currO = 0
-                
-    #calculates for each diagonal 
-    for k in range(1,10,3):
-        if boards.get_tile(i,k) == 1:
-            currX += 1
-        if boards.get_tile(i,k) == 2:
-            currO += 1
-    totalX += heuristicAddX(currX, currO)
-    totalO += heuristicAddO(currX, currO)
-    currX = 0
-    currO = 0
         
-    for k in range(3,8,2):
-        if boards.get_tile(i,k) == 1:
-            currX += 1
-        if boards.get_tile(i,k) == 2:
-            currO += 1
-    totalX += heuristicAddX(currX, currO)
-    totalO += heuristicAddO(currX, currO)
-    currX = 0
-    currO = 0
-    
-    return totalX-totalO
-    
-    #print("totalX: ", totalX, "\ntotalO: ", totalO)
+'''
+def minimax(self, depth, max_depth, last_move, curr_board):
 
+def min_value:
 
-#helper function to find X score for a row/col/diagonal
-def heuristicAddX(currX, currO):
-    if currO == 0:
-        if currX == 3:
-            return 6
-        if currX == 2:
-            return 3
-        if currX == 1:
-            return 1
-        else:
-            return 0
-    else:
-        return 0
-        
-#helper function to find O score for a row/col/diagonal
-def heuristicAddO(currX, currO):
-    if currX == 0:
-        if currO == 3:
-            return 6
-        if currO == 2:
-            return 3
-        if currO == 1:
-            return 1
-        else:
-            return 0 
-    else:
-        return 0
+def max_value:
+'''
 
 
 if __name__ == "__main__":
