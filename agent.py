@@ -36,14 +36,14 @@ def play():
     #n = alphaBetaSearch(chosen depth)
     #return n
 
-    
+    '''
     n = np.random.randint(1,9)
     while boards.get_tile(curr, n) != 0:
         n = np.random.randint(1,9)
-    
+    '''
     # print("playing", n)
-
-    print(alphaBetaSearch(3))
+    n = alphaBetaSearch(1)
+    #print(n)
 
     place(curr, n, 1)
     return n
@@ -87,25 +87,33 @@ def parse(string):
     
     
 def alphaBetaSearch(depth):
-    maxalpha = alphaBetaHelper(boards, depth, -99999, 99999)
-    return maxalpha
+    alpha = [-99999, 0]
+    beta = [99999, 0]
+    maxalpha = alphaBetaHelper(boards, depth, alpha, beta)
+    print("////",maxalpha[0], " ", maxalpha[1],"////")
+    return maxalpha[1]
 
 
 def alphaBetaHelper(node, depth, alpha, beta):
     if node.is_terminal() or depth == 0:
-        return node.compute_heuristic(2, 1)
+        print(node.compute_heuristic(2, 1))
+        return [node.compute_heuristic(2, 1),  0]
 
     if node.get_player() == 2:
         for child in node.generate_children():
-            alpha = max(alpha, alphaBetaHelper(child, depth-1, alpha, beta))
-            if alpha >= beta:
+            childAlpha = alphaBetaHelper(child, depth-1, alpha, beta)
+            if(childAlpha[0] > alpha[0]):
+                alpha = [childAlpha[0], child.get_boardtoplayin()]
+            if alpha[0] >= beta[0]:
                 return alpha
         return alpha
 
     else:
         for child in node.generate_children():
-            beta = min(beta, alphaBetaHelper(child, depth-1, alpha, beta))
-            if alpha >= beta:
+            childBeta = alphaBetaHelper(child, depth-1, alpha, beta)
+            if(childBeta[0] < beta[0]):
+                beta = [childBeta[0], child.get_boardtoplayin()]
+            if alpha[0] >= beta[0]:
                 return beta
         return beta
 

@@ -75,7 +75,7 @@ class Board:
 
     def generate_children(self):
         children = []
-        b = self._state[self._boardplayedin]
+        b = self._state[self._boardtoplayin]
         for i in range(1,10):
             if b[i] == 0:
                 newBoard = Board(copy(self._state))
@@ -92,7 +92,8 @@ class Board:
             return 1
         return 2
         
- 
+    def get_boardtoplayin(self):
+        return self._boardtoplayin
         
 
 
@@ -157,14 +158,14 @@ def heuristicSmall(self, i, player1, player2):
     curr1 = 0
     curr2 = 0
     
-    return total1-total2
+    return total2-total1
 
 
 #helper function to find X score for a row/col/diagonal
 def heuristicAddX(curr1, curr2):
     if curr2 == 0:
         if curr1 == 3:
-            return 6
+            return 60
         if curr1 == 2:
             return 3
         if curr1 == 1:
@@ -178,7 +179,7 @@ def heuristicAddX(curr1, curr2):
 def heuristicAddO(curr1, curr2):
     if curr1 == 0:
         if curr2 == 3:
-            return 6
+            return 60
         if curr2 == 2:
             return 3
         if curr2 == 1:
