@@ -17,7 +17,7 @@ class Board:
         return self._state
 
     #remember for agent.py heuristic is computed from player 2 point of view
-    def compute_heuristic(self):
+    def compute_heuristic(self, player1, player2):
         return heuristicBoard(self, player1, player2)
     
     def get_tile(self, board, num):
@@ -47,8 +47,8 @@ class Board:
         self.print_board_row(7,8,9,1,2,3)
         self.print_board_row(7,8,9,4,5,6)
         self.print_board_row(7,8,9,7,8,9)
-        #print()
-        print("heuristic: ", self.compute_heuristic(), "\n")
+        print()
+        #print("heuristic: ", self.compute_heuristic(), "\n")
 
     def is_terminal(self):
         return self.boardfull() or self.won()
@@ -106,7 +106,7 @@ def heuristicBoard(self, player1, player2):
 
 
 # evaluates the heuristic for a 3x3 board
-def heuristicSmall(self, i):
+def heuristicSmall(self, i, player1, player2):
     total1 = 0
     total2 = 0
     curr1 = 0
