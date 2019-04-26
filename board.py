@@ -16,7 +16,8 @@ class Board:
     def state(self):
         return self._state
 
-    #remember for agent.py heuristic is computed from player 2 point of view
+    #remember for agent.py heuristic is computed from player 1 point of view
+    #called player 1= 1, player2 = 2
     def compute_heuristic(self, player1, player2):
         return heuristicBoard(self, player1, player2)
     
@@ -79,7 +80,7 @@ class Board:
         for i in range(1,10):
             if b[i] == 0:
                 newBoard = Board(copy(self._state))
-                newBoard.place(self._boardplayedin, i, self.next_player())
+                newBoard.place(self._boardtoplayin, i, self.next_player())
                 children.append(newBoard)
 
         return children
@@ -99,9 +100,10 @@ class Board:
 
 # calculates the heuristic of the entire board
 # where player1 is the player who called the alpha beta search
+#player1 = 1, player2 = 2
 def heuristicBoard(self, player1, player2):
     total = 0
-    for i in range(1,9):
+    for i in range(1,10):
         total += heuristicSmall(self, i, player1, player2)
     return total
 
@@ -158,14 +160,14 @@ def heuristicSmall(self, i, player1, player2):
     curr1 = 0
     curr2 = 0
     
-    return total2-total1
+    return total1 - total2
 
 
-#helper function to find X score for a row/col/diagonal
+#helper function to find 1 score for a row/col/diagonal
 def heuristicAddX(curr1, curr2):
     if curr2 == 0:
         if curr1 == 3:
-            return 60
+            return 1000
         if curr1 == 2:
             return 3
         if curr1 == 1:
@@ -175,11 +177,11 @@ def heuristicAddX(curr1, curr2):
     else:
         return 0
         
-#helper function to find O score for a row/col/diagonal
+#helper function to find 2 score for a row/col/diagonal
 def heuristicAddO(curr1, curr2):
     if curr1 == 0:
         if curr2 == 3:
-            return 60
+            return 1000
         if curr2 == 2:
             return 3
         if curr2 == 1:

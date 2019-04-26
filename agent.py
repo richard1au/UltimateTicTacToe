@@ -42,7 +42,13 @@ def play():
         n = np.random.randint(1,9)
     '''
     # print("playing", n)
-    n = alphaBetaSearch(1)
+
+    #Temporary fix for not making "winning moves". It gets close to winning moves but never
+    #makes them...
+    for child in boards.generate_children():
+        if child.won():
+            return child.get_boardtoplayin()
+    n = alphaBetaSearch(2)
     #print(n)
 
     place(curr, n, 1)
@@ -96,8 +102,8 @@ def alphaBetaSearch(depth):
 
 def alphaBetaHelper(node, depth, alpha, beta):
     if node.is_terminal() or depth == 0:
-        print(node.compute_heuristic(2, 1))
-        return [node.compute_heuristic(2, 1),  0]
+        print(node.compute_heuristic(1, 2))
+        return [node.compute_heuristic(1, 2),  node.get_boardtoplayin()]
 
     if node.get_player() == 2:
         for child in node.generate_children():
