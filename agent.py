@@ -18,7 +18,8 @@ from board import Board
 # the boards are of size 10 because index 0 isn't used
 boards = Board(np.zeros((10, 10), dtype="int8"))
 curr = 0 # this is the current board to play in
-
+global_nummoves = 0
+global_depth = 4
 
 # choose a move to play
 #play should use new updated board, create a new game tree with it.
@@ -45,17 +46,26 @@ def play():
 
     #Temporary fix for not making "winning moves". It gets close to winning moves but never
     #makes them...
-    for child in boards.generate_children():
-        if child.won():
-            return child.get_boardtoplayin()
-    n = alphaBetaSearch(2)
+    # for child in boards.generate_children():
+    #     if child.won():
+    #         return child.get_boardtoplayin()
+    # n = alphaBetaSearch(4)
     #print(n)
 
+    #Every 7 moves, increment depth of search by one
+    global global_depth
+    global global_nummoves
+
+    n = alphaBetaSearch(global_depth)
     place(curr, n, 1)
+    global_nummoves += 1
+    if global_nummoves % 7 == 0:
+        global_depth += 1
+    print(f'Depth : {global_depth}, Num_Moves: {global_nummoves}')
+
     return n
 
 # place a move in the global boards
-#Global curr is an issue, can't be bothered to fix this right now
 def place(board, num, player):
     global curr
     curr = num
@@ -96,13 +106,13 @@ def alphaBetaSearch(depth):
     alpha = [-99999, 0]
     beta = [99999, 0]
     maxalpha = alphaBetaHelper(boards, depth, alpha, beta)
-    print("////",maxalpha[0], " ", maxalpha[1],"////")
+    #print("////",maxalpha[0], " ", maxalpha[1],"////")
     return maxalpha[1]
 
 
 def alphaBetaHelper(node, depth, alpha, beta):
     if node.is_terminal() or depth == 0:
-        print(node.compute_heuristic(1, 2))
+        #print(node.compute_heuristic(1, 2))
         return [node.compute_heuristic(1, 2),  node.get_boardtoplayin()]
 
     if node.get_player() == 2:
