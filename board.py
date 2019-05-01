@@ -15,7 +15,7 @@ class Board:
     def state(self):
         return self._state
      
-    def compute_heuristic(self, player1, player2):
+    def compute_heuristic(self):
         return self._heurCurr
     
     #Retrives either 0,1,2 at the specified board and position (num)
