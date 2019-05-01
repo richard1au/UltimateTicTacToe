@@ -62,7 +62,7 @@ class Board:
     def generate_children(self):
         children = []
         b = self._state[self._boardtoplayin]  #Gets the board to be played in
-        for i in range(1,10): 
+        for i in [5,1,3,7,9,2,4,6,8]:  #Naive move ordering to check middle, corners then sides
             if b[i] == 0: #Checks all positions on board, if empty there is a valid move
                 newBoard = Board(copy(self._state), self._heurCurr) #Create new Board object with copied state and current heuristic
                 newBoard.place(self._boardtoplayin, i, self.next_player()) #Place new valid move

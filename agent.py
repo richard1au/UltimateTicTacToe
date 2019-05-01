@@ -43,6 +43,9 @@
 #We did attempt to implement it without having to copy and just use one instance of Board however we found virtually no improvement to our overhead costs and thus
 #little gain in computational speed.
 
+#We also did naive move ordering in generating children to check middle, corner then sides
+#Improves pruning especially at earlier stages
+
 #Python so slow so sad :(
 
 import socket
@@ -72,7 +75,7 @@ def play():
     place(curr, n, 1) #place returned move
 
     global_nummoves += 1 #Num moves we have made (not including random) increases by one
-    global_depth = max(global_depth, math.floor(math.log(global_nummoves, 2))+3) #Depth we will search next will be the max of current depth vs log function floor 
+    global_depth = max(global_depth, math.floor(math.log(global_nummoves, 1.85))+3) #Depth we will search next will be the max of current depth vs log function floor 
 
     return n
 
