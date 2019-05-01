@@ -10,7 +10,7 @@ class Board:
         self._boardplayedin = 0
         self._boardtoplayin = 0
         self._player = 0
-
+        self._heurCurr = 0
 
     @property
     def state(self):
@@ -18,17 +18,26 @@ class Board:
 
     #remember for agent.py heuristic is computed from player 1 point of view
     #called player 1= 1, player2 = 2
+    #compute heuristic can now be changed to just return self._heurCurr
     def compute_heuristic(self, player1, player2):
-        return heuristicBoard(self, player1, player2)
+        #return heuristicBoard(self, player1, player2)
+        return self._heurCurr
     
     def get_tile(self, board, num):
         return self._state[board][num]
 
     def place(self, board, num, player):
+        #Also need to update heur by only checking one board heur before and heur now (hashing will speed this up significantly)
+        #Could also split up heuristic modification and board placement into two functions? Not necessary
+        prevHeur = self.heuristicSmall(board, 1, 2)
         self._state[board][num] = player
         self._boardplayedin = board
         self._boardtoplayin = num
         self._player = player
+        #ie. If prevheur was 5 in the same board, now its 10, then update by +5!
+        newHeur = self.heuristicSmall(board, 1, 2)
+        self._heurCurr += newHeur - prevHeur
+        
 
     def print_board_row(self, a, b, c, i, j, k):
         # The marking script doesn't seem to like this either, so just take it out to submit
