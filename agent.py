@@ -19,7 +19,7 @@ from board import Board
 boards = Board(np.zeros((10, 10), dtype="int8"))
 curr = 0 # this is the current board to play in
 global_nummoves = 0
-global_depth = 4
+global_depth = 5
 
 # choose a move to play
 #play should use new updated board, create a new game tree with it.
@@ -59,7 +59,7 @@ def play():
     n = alphaBetaSearch(global_depth)
     place(curr, n, 1)
     global_nummoves += 1
-    if global_nummoves % 7 == 0:
+    if global_nummoves % 5 == 0:
         global_depth += 1
     print(f'Depth : {global_depth}, Num_Moves: {global_nummoves}')
 

@@ -29,13 +29,13 @@ class Board:
     def place(self, board, num, player):
         #Also need to update heur by only checking one board heur before and heur now (hashing will speed this up significantly)
         #Could also split up heuristic modification and board placement into two functions? Not necessary
-        prevHeur = self.heuristicSmall(board, 1, 2)
+        prevHeur = heuristicSmall(self, board, 1, 2)
         self._state[board][num] = player
         self._boardplayedin = board
         self._boardtoplayin = num
         self._player = player
         #ie. If prevheur was 5 in the same board, now its 10, then update by +5!
-        newHeur = self.heuristicSmall(board, 1, 2)
+        newHeur = heuristicSmall(self, board, 1, 2)
         self._heurCurr += newHeur - prevHeur
         
 
@@ -176,9 +176,9 @@ def heuristicSmall(self, i, player1, player2):
 def heuristicAddX(curr1, curr2):
     if curr2 == 0:
         if curr1 == 3:
-            return 1000
+            return 10000
         if curr1 == 2:
-            return 3
+            return 20
         if curr1 == 1:
             return 1
         else:
@@ -190,9 +190,9 @@ def heuristicAddX(curr1, curr2):
 def heuristicAddO(curr1, curr2):
     if curr1 == 0:
         if curr2 == 3:
-            return 1000
+            return 10000
         if curr2 == 2:
-            return 3
+            return 20
         if curr2 == 1:
             return 1
         else:
