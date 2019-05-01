@@ -138,7 +138,7 @@ def heuristicSmall(self, i, player1, player2):
                 
     #calculates for each column
     for k in range(0,3):
-        for l in range(1,10,3):
+        for l in range(1,8,3):
             if self.get_tile(i,l+k) == player1:
                 curr1 += 1
             if self.get_tile(i,l+k) == player2: 
@@ -149,7 +149,7 @@ def heuristicSmall(self, i, player1, player2):
         curr2 = 0
                 
     #calculates for each diagonal 
-    for k in range(1,8,4):
+    for k in range(1,10,4):
         if self.get_tile(i,k) == player1:
             curr1 += 1
         if self.get_tile(i,k) == player2:
@@ -159,7 +159,7 @@ def heuristicSmall(self, i, player1, player2):
     curr1 = 0
     curr2 = 0
         
-    for k in range(3,8,2):
+    for k in range(3,9,2):
         if self.get_tile(i,k) == player1:
             curr1 += 1
         if self.get_tile(i,k) == player2:
