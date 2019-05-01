@@ -88,7 +88,7 @@ class Board:
         b = self._state[self._boardtoplayin]
         for i in range(1,10):
             if b[i] == 0:
-                newBoard = Board(copy(self._state), self._currHeur)
+                newBoard = Board(copy(self._state), self._heurCurr)
                 newBoard.place(self._boardtoplayin, i, self.next_player())
                 children.append(newBoard)
 
