@@ -49,6 +49,7 @@ import socket
 import sys
 import numpy as np
 from board import Board
+import math
 
 # a board cell can hold:
 #   0 - Empty
