@@ -5,12 +5,12 @@ from copy import copy
 #assumption that a randomly made first move has been done in order to generate children!
 class Board:
 
-    def __init__(self, state):
+    def __init__(self, state, heurCurr = 0):
         self._state = state
         self._boardplayedin = 0
         self._boardtoplayin = 0
         self._player = 0
-        self._heurCurr = 0
+        self._heurCurr = heurCurr
 
     @property
     def state(self):
@@ -88,7 +88,7 @@ class Board:
         b = self._state[self._boardtoplayin]
         for i in range(1,10):
             if b[i] == 0:
-                newBoard = Board(copy(self._state))
+                newBoard = Board(copy(self._state), self._currHeur)
                 newBoard.place(self._boardtoplayin, i, self.next_player())
                 children.append(newBoard)
 
