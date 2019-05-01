@@ -72,7 +72,7 @@ def play():
     place(curr, n, 1) #place returned move
 
     global_nummoves += 1 #Num moves we have made (not including random) increases by one
-    global_depth = max(global_depth, math.floor(math.log(global_nummoves, 1.58))+1) #Depth we will search next will be the max of current depth vs log function floor 
+    global_depth = max(global_depth, math.floor(math.log(global_nummoves, 2))+3) #Depth we will search next will be the max of current depth vs log function floor 
 
     return n
 
